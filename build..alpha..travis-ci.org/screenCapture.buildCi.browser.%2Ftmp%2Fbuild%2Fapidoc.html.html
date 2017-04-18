@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/tellnes/bunyan-middleware#readme"
-
-    >bunyan-middleware (v0.6.0)</a>
+    <a href="https://github.com/tellnes/bunyan-middleware#readme">bunyan-middleware (v0.6.0)</a>
 </h1>
-<h4>Request, response logger middleware using bunyan. Also provides request<>response duration.</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<h4>Request, response logger middleware using bunyan. Also provides request&lt;&gt;response duration.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.bunyan-middleware">module bunyan-middleware</a><ol>
 
@@ -111,27 +104,27 @@
   options = options || {}
   logger = logger || options.logger
 
-  if (!logger &#x26;&#x26; options.constructor &#x26;&#x26; options.constructor.name === &#x27;Logger&#x27;) {
+  if (!logger &amp;&amp; options.constructor &amp;&amp; options.constructor.name === 'Logger') {
     logger = options
     options = {}
   }
 
   if (!logger) {
-    throw new Error(&#x27;`logger` is required&#x27;)
+    throw new Error('`logger` is required')
   }
 
-  var headerName = options.headerName || &#x27;X-Request-Id&#x27;
+  var headerName = options.headerName || 'X-Request-Id'
     , headerNameLower = headerName.toLowerCase()
-    , propertyName = options.propertyName || &#x27;reqId&#x27;
+    , propertyName = options.propertyName || 'reqId'
     , additionalRequestFinishData = options.additionalRequestFinishData
-    , logName = options.logName || &#x27;req_id&#x27;
+    , logName = options.logName || 'req_id'
     , obscureHeaders = options.obscureHeaders
     , requestStart = options.requestStart || false
     , verbose = options.verbose || false
-    , parentRequestSerializer = logger.serializers &#x26;&#x26; logger.serializers.req
-    , level = options.level || &#x27;info&#x27;
+    , parentRequestSerializer = logger.serializers &amp;&amp; logger.serializers.req
+    , level = options.level || 'info'
 
-  if (obscureHeaders &#x26;&#x26; obscureHeaders.length) {
+  if (obscureHeaders &amp;&amp; obscureHeaders.length) {
     obscureHeaders = obscureHeaders.map(function (name) {
       return name.toLowerCase()
     })
@@ -154,13 +147,13 @@
         }
     }
 
-    if (obscureHeaders &#x26;&#x26; obj.headers) {
+    if (obscureHeaders &amp;&amp; obj.headers) {
       var headers = {}
       Object.keys(obj.headers).forEach(function(name) {
         headers[name] = obj.headers[name]
       })
 
-      for (var i = 0; i &#x3c; obscureHeaders.length; i++) {
+      for (var i = 0; i &lt; obscureHeaders.length; i++) {
         headers[ obscureHeaders[i] ] = null
       }
 
@@ -173,7 +166,7 @@
   logger = logger.child(
     { serializers:
       { req: requestSerializer
-      , res: logger.serializers &#x26;&#x26; logger.serializers.res || logger.constructor.stdSerializers.res
+      , res: logger.serializers &amp;&amp; logger.serializers.res || logger.constructor.stdSerializers.res
       }
     }
   )
@@ -195,9 +188,9 @@
     if (requestStart || verbose) {
       var reqStartData = { req: req }
       if (verbose) reqStartData.res = res
-      req.log[level](reqStartData, &#x27;request start&#x27;)
+      req.log[level](reqStartData, 'request start')
     }
-    res.on(&#x27;finish&#x27;, function() {
+    res.on('finish', function() {
       var reqFinishData =
         { res: res
         , duration: getDuration(start)
@@ -211,15 +204,15 @@
           })
         }
       }
-      res.log[level](reqFinishData, &#x27;request finish&#x27;)
+      res.log[level](reqFinishData, 'request finish')
     })
-    res.on(&#x27;close&#x27;, function () {
+    res.on('close', function () {
       res.log.warn(
           { req: req
           , res: res
           , duration: getDuration(start)
           }
-        , &#x27;request socket closed&#x27;
+        , 'request socket closed'
         )
     })
 
@@ -271,3 +264,4 @@
     ]
 </div>
 </div>
+</body></html>

@@ -61,12 +61,207 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.bunyan-middleware">module bunyan-middleware</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bunyan-middleware.bunyan-middleware">
+            function <span class="apidocSignatureSpan"></span>bunyan-middleware
+            <span class="apidocSignatureSpan">(options, logger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bunyan-middleware.toString">
+            function <span class="apidocSignatureSpan">bunyan-middleware.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.bunyan-middleware.toString">module bunyan-middleware.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bunyan-middleware.toString.toString">
+            function <span class="apidocSignatureSpan">bunyan-middleware.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.bunyan-middleware" id="apidoc.module.bunyan-middleware">module bunyan-middleware</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bunyan-middleware.bunyan-middleware" id="apidoc.element.bunyan-middleware.bunyan-middleware">
+        function <span class="apidocSignatureSpan"></span>bunyan-middleware
+        <span class="apidocSignatureSpan">(options, logger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">bunyan-middleware = function (options, logger) {
+  options = options || {}
+  logger = logger || options.logger
+
+  if (!logger &#x26;&#x26; options.constructor &#x26;&#x26; options.constructor.name === &#x27;Logger&#x27;) {
+    logger = options
+    options = {}
+  }
+
+  if (!logger) {
+    throw new Error(&#x27;`logger` is required&#x27;)
+  }
+
+  var headerName = options.headerName || &#x27;X-Request-Id&#x27;
+    , headerNameLower = headerName.toLowerCase()
+    , propertyName = options.propertyName || &#x27;reqId&#x27;
+    , additionalRequestFinishData = options.additionalRequestFinishData
+    , logName = options.logName || &#x27;req_id&#x27;
+    , obscureHeaders = options.obscureHeaders
+    , requestStart = options.requestStart || false
+    , verbose = options.verbose || false
+    , parentRequestSerializer = logger.serializers &#x26;&#x26; logger.serializers.req
+    , level = options.level || &#x27;info&#x27;
+
+  if (obscureHeaders &#x26;&#x26; obscureHeaders.length) {
+    obscureHeaders = obscureHeaders.map(function (name) {
+      return name.toLowerCase()
+    })
+  } else {
+    obscureHeaders = false
+  }
+
+  function requestSerializer(req) {
+    var obj
+    if (parentRequestSerializer) {
+      obj = parentRequestSerializer(req)
+    } else {
+      obj =
+        { method: req.method
+        , url: req.originalUrl || req.url
+        , headers: req.headers
+        , query: req.query
+        , remoteAddress: req.connection.remoteAddress
+        , remotePort: req.connection.remotePort
+        }
+    }
+
+    if (obscureHeaders &#x26;&#x26; obj.headers) {
+      var headers = {}
+      Object.keys(obj.headers).forEach(function(name) {
+        headers[name] = obj.headers[name]
+      })
+
+      for (var i = 0; i &#x3c; obscureHeaders.length; i++) {
+        headers[ obscureHeaders[i] ] = null
+      }
+
+      obj.headers = headers
+    }
+
+    return obj
+  }
+
+  logger = logger.child(
+    { serializers:
+      { req: requestSerializer
+      , res: logger.serializers &#x26;&#x26; logger.serializers.res || logger.constructor.stdSerializers.res
+      }
+    }
+  )
+
+  return function (req, res, next) {
+    var id = req[propertyName]
+          || req.headers[headerNameLower]
+          || uuid()
+
+    var start = process.hrtime()
+
+    var prefs = {}
+    prefs[logName] = id
+    req.log = res.log = logger.child(prefs, true)
+
+    req[propertyName] = res[propertyName] = id
+    res.setHeader(headerName, id)
+
+    if (requestStart || verbose) {
+      var reqStartData = { req: req }
+      if (verbose) reqStartData.res = res
+      req.log[level](reqStartData, &#x27;request start&#x27;)
+    }
+    res.on(&#x27;finish&#x27;, function() {
+      var reqFinishData =
+        { res: res
+        , duration: getDuration(start)
+        }
+      if (!requestStart || verbose) reqFinishData.req = req
+      if (additionalRequestFinishData) {
+        var additionReqFinishData = additionalRequestFinishData(req, res)
+        if (additionReqFinishData) {
+          Object.keys(additionReqFinishData).forEach(function(name) {
+            reqFinishData[name] = additionReqFinishData[name]
+          })
+        }
+      }
+      res.log[level](reqFinishData, &#x27;request finish&#x27;)
+    })
+    res.on(&#x27;close&#x27;, function () {
+      res.log.warn(
+          { req: req
+          , res: res
+          , duration: getDuration(start)
+          }
+        , &#x27;request socket closed&#x27;
+        )
+    })
+
+    next()
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.bunyan-middleware.toString" id="apidoc.element.bunyan-middleware.toString">
+        function <span class="apidocSignatureSpan">bunyan-middleware.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.bunyan-middleware.toString" id="apidoc.module.bunyan-middleware.toString">module bunyan-middleware.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bunyan-middleware.toString.toString" id="apidoc.element.bunyan-middleware.toString.toString">
+        function <span class="apidocSignatureSpan">bunyan-middleware.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 
