@@ -1,9 +1,14 @@
-# api documentation for  [bunyan-middleware (v0.6.0)](https://github.com/tellnes/bunyan-middleware#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-bunyan-middleware.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bunyan-middleware) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware)
+# npmdoc-bunyan-middleware
+
+#### api documentation for  [bunyan-middleware (v0.6.0)](https://github.com/tellnes/bunyan-middleware#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-bunyan-middleware.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bunyan-middleware) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware)
+
 #### Request, response logger middleware using bunyan. Also provides request<>response duration.
 
-[![NPM](https://nodei.co/npm/bunyan-middleware.png?downloads=true)](https://www.npmjs.com/package/bunyan-middleware)
+[![NPM](https://nodei.co/npm/bunyan-middleware.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/bunyan-middleware)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-bunyan-middleware_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-bunyan-middleware/build/screenCapture.npmPackageListing.svg)
 
@@ -18,7 +23,6 @@
 {
     "author": {
         "name": "Christian Tellnes",
-        "email": "christian@tellnes.no",
         "url": "http://christian.tellnes.com"
     },
     "bugs": {
@@ -50,8 +54,7 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "tellnes",
-            "email": "christian@tellnes.no"
+            "name": "tellnes"
         }
     ],
     "name": "bunyan-middleware",
@@ -59,7 +62,6 @@
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/tellnes/bunyan-middleware.git"
@@ -68,16 +70,6 @@
     "version": "0.6.0"
 }
 ```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module bunyan-middleware](#apidoc.module.bunyan-middleware)
-
-
-
-# <a name="apidoc.module.bunyan-middleware"></a>[module bunyan-middleware](#apidoc.module.bunyan-middleware)
 
 
 
