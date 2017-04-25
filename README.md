@@ -1,6 +1,6 @@
 # npmdoc-bunyan-middleware
 
-#### api documentation for  [bunyan-middleware (v0.6.0)](https://github.com/tellnes/bunyan-middleware#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-bunyan-middleware.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bunyan-middleware) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware)
+#### basic api documentation for  [bunyan-middleware (v0.6.0)](https://github.com/tellnes/bunyan-middleware#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-bunyan-middleware.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bunyan-middleware) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bunyan-middleware)
 
 #### Request, response logger middleware using bunyan. Also provides request<>response duration.
 
@@ -67,7 +67,8 @@
         "url": "git://github.com/tellnes/bunyan-middleware.git"
     },
     "scripts": {},
-    "version": "0.6.0"
+    "version": "0.6.0",
+    "bin": {}
 }
 ```
 
